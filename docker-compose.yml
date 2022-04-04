@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  sql:
+    image: mariadb:10.7.3
+    restart: always
+    volumes:
+      - tech_scout:/var/lib/mysql
+    networks:
+      - backend
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=rootpass
+  phpmyadmin:
+    image: phpmyadmin:5.1.3
+    restart: always
+    networks:
+      - backend
+    ports:
+      - "8081:80"
+    links:
+      - sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - PMA_HOST=sql
+      - PMA_PORT=3306
+      - PMA_ARBITRARY=0
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  tech_scout:
