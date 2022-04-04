@@ -1,2 +1,6 @@
 # Apple file system
 **/.DS_store
+
+# Django
+*.sqlite3
+__pycache__

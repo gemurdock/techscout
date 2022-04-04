@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  webserver:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - "80:80"
+    links:
+      - sql
+    volumes:
+      - ./:/code
   sql:
     image: mariadb:10.7.3
     restart: always
