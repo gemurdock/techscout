@@ -6,12 +6,21 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     restart: always
+    networks:
+      - frontend
+      - backend
     ports:
       - "80:80"
     links:
       - sql
     volumes:
       - ./:/code
+    environment:
+      - DB_HOST=sql
+      - DB_PORT=3306
+      - DB_NAME=techscout
+      - DB_USER=root
+      - DB_PASS=rootpass
   sql:
     image: mariadb:10.7.3
     restart: always
